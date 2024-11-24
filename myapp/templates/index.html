@@ -1,0 +1,93 @@
+
+{% extends 'layouts/base.html' %} {% load static %} {% block content %}
+
+<title>Home</title>
+
+<div class="container mt-5">
+    <div class="jumbotron text-center pt-4">
+        {% if error %}
+          <div class="alert alert-danger py-1 col-md-4 offset-md-4 mb-0 fixed-top" style="margin-top: 70px;">
+            {{ error }}
+          </div>
+        {% endif %}
+        {% if messages %}
+          {% for message in messages %}           
+            <div class="alert alert-{{ message.tags }} py-1 col-md-4 offset-md-4 mb-0 fixed-top" style="margin-top: 70px;">
+              {{ message }}
+            </div>
+          {% endfor %}          
+        {% endif %}
+        {% if user.is_authenticated %}
+          <h1 class="display-4">Welcome {{user}}</h1>
+          <hr class="my-4">
+          <h4>Manage your projects easily and comfortably</h4>
+          <a href="{% url 'projects' user.id %}" class="btn btn-primary mt-3">Projects</a>
+        {% else %}
+          <h1 class="display-4">Welcome to My Django Project!</h1>
+          <hr class="my-4">
+          <p class="lead">This is my first project in Django, and I'm excited to share it with you.</p>
+          <p>Explore the features that make this site unique.</p>
+          <a class="btn btn-primary btn-lg" href="{% url 'about' %}" role="button">Learn more</a>
+        {% endif %}          
+        
+        
+        
+    </div>
+    
+    <div class="mt-5" >
+      <div class="col-md-12 text-center">
+          <h2>What Our Users Say</h2>
+      </div>
+      
+      <div style="margin-left:25%; width:50%; max-height: 290px; overflow-y: auto; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+        {% for comment in comments %}
+          <div class="col-md-4" style="width: 100%;">
+              <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                  <p class="card-text">"{{ comment.comment_text }}"</p>
+                  {% if comment.user.is_superuser %}
+                  <footer class="blockquote-footer text-primary">{{ comment }} - Admin</footer>
+                  {% else %}
+                  <footer class="blockquote-footer">{{ comment }}</footer>
+                  {% endif %}
+                    <div class="d-flex ">
+                        <a href="{% url 'like_comment' comment.id %}" class="me-3 btn btn-outline-success py-0 px-1"><i class="bi bi-hand-thumbs-up-fill me-2"></i>{{ comment.total_likes }}</a>
+                        <a href="{% url 'dislike_comment' comment.id %}" class="btn btn-outline-danger py-0 px-1"><i class="bi bi-hand-thumbs-down-fill me-2"></i>{{ comment.total_dislikes }}</a>
+                    </div>
+                </div>
+              </div>
+          </div>
+        {% endfor %}
+      </div>
+  </div>
+
+  <main class="container mt-3">
+      <div >
+          <div class="col-md-3 offset-md-3" style="width: 50%;">
+              <form method="POST" class="card card-body">
+                  {% csrf_token %}
+                  {{form}}
+                  <button class="btn btn-primary mt-2">Submit</button>
+              </form>
+          </div>
+      </div>
+        
+    </main>
+    <footer class="text-center mt-5">
+        <p>&copy; 2024 My First Django Project. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:grasielaguilar5@gmail.com">grasielaguilar5@gmail.com</a></p>
+    </footer>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script> setTimeout(function(){
+            $('.alert').alert('close');
+        }, 5000);
+</script>
+
+
+{% endblock %}
+    

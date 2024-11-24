@@ -1,0 +1,107 @@
+{% extends 'layouts/base.html' %} 
+
+{% block content %}
+   <title>
+      {% if url == 'undone' %}
+         Undone Tasks
+      {% else %}
+         Done Tasks
+      {% endif %} 
+   </title>
+  
+   <div class="d-flex mt-5 pt-4 me-4 d-grid gap-2 d-md-flex justify-content-md-end">
+      {% if url == 'undone' %}
+         <a class="btn btn-outline-success" href="{% url 'tasks_done' project.id %}">Tasks Done</a>
+         <a class="btn btn-primary ms-3" href="{% url 'create_task' project.id %}" style="text-decoration: none;">Add Task</a>
+      {% else %}
+         <a class="btn btn-outline-success" href="{% url 'project_detail' project.id %}">Undone Tasks</a>
+      {% endif %}
+   </div>
+   
+   <main class="conatiner">
+      <div class="row">
+         <div class="col-md-6 offset-md-3 p-0">
+            <h1 class="text-center mb-3 display-4 pb-2 pt-0" style="overflow:hidden;"> {{project}} </h1>
+            {% if tasks_done or tasks_not_done %}
+            {% for task in tasks_not_done %}
+               <div class="d-flex" style="align-items: center ;">
+                  <a class="card card-body bg-light" href="{% url 'task_detail' project.id task.id %}" style="text-decoration: none;"><h3 class="d-flex">
+                    
+                     <svg style="margin-top:10px " xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-clock me-2 text-warning" viewBox="0 0 16 16">
+                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
+                     </svg>
+                     {{task.title}} 
+                  </h3></a>
+                  <form class="ms-2" style="width: 10%;" action="{% url 'delete_task' project.id task.id url %}" method="POST" onsubmit="return confirm('Estás seguro de que quieres eliminar esta tarea? Esta acción no se podra deshacer.')">
+                  {% csrf_token %}
+                  <button class="btn btn-danger" type="submit"><svg class="me-1" xmlns="http://www.w3.org/2000/svg" width="18" height="20" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                     <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                   </svg>Delete</button>
+                  </form>
+               </div>
+               <div class="d-flex my-3">
+                  
+                  {% if url == 'undone' %}
+                     <form class="mx-4" action="{% url 'mark_task' task.id project.id %}"  method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-success" type="submit">  Done  </button>
+                     </form>
+                  {% else %}
+                     <form class="mx-4" action="{% url 'unmark_task' task.id project.id %}"  method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-secondary" type="submit">Undone</button>
+                     </form>
+                  {% endif %}
+               </div>
+            {% endfor %}
+                  
+
+               {% for task in tasks_done %}
+                  <div class="d-flex" style="align-items: center;">
+                     <a class="card card-body bg-light" href="{% url 'task_detail' project.id task.id %}" style="text-decoration: none;"><h3 class="d-flex">
+                        <svg style="margin-top: 10px;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2-circle me-2 text-success" viewBox="0 0 16 16">
+                           <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                           <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                         </svg>
+                        {{task.title}} 
+                     </h3></a>
+                     <form class="ms-2" style="width: 10%;" action="{% url 'delete_task' project.id task.id url %}" method="POST" onsubmit="return confirm('Estás seguro de que quieres eliminar esta tarea? Esta acción no se podra deshacer.')">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit"><svg class="me-1" xmlns="http://www.w3.org/2000/svg" width="18" height="20" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                           <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                         </svg>Delete</button>
+                        </form>
+                  </div>
+                  <div class="d-flex my-3">
+                     {% if url == 'undone' %}
+                     <form class="mx-4" action="{% url 'mark_task' task.id project.id %}"  method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-success" type="submit">  Done  </button>
+                     </form>
+                  {% else %}
+                     <form class="mx-4" action="{% url 'unmark_task' task.id project.id %}"  method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-secondary" type="submit">Undone</button>
+                     </form>
+                  {% endif %}
+                   </div>
+               {% endfor %}
+            {% else %}
+            
+            {% if url == 'undone' %}
+               <div class="text-center alert alert-light py-0 "><p class="m-0">There are no pending tasks</p></div>
+            {% else %}
+               <div class="text-center alert alert-light py-0 "><p class="m-0">No tasks completed</p></div>
+            {% endif %}
+            {% endif %}
+            {% if url == 'undone' %}
+                  <a class="btn btn-dark col-md-2 offset-md-2 fixed-bottom mb-5" href="{% url 'projects' user.id %}" style="margin-left: 42%;">
+                     <i class="bi bi-arrow-90deg-left me-1"></i>Volver
+                  </a>
+            {% endif %}
+         </div>
+      </div>
+   </main>
+
+{% endblock content %}

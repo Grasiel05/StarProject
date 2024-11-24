@@ -1,0 +1,158 @@
+body{
+    background: #222222;
+    color: rgb(114, 250, 132);
+}
+
+.navbar{
+    background: #404040;
+    padding: 2px 10px;
+    border-radius: 10px;
+    margin: 0;
+}
+
+.project_card{
+    background: #404040;
+    color: aquamarine;
+    padding-left: 15px;
+    margin-bottom: 2px;
+    width: 40%;
+    border-radius: 10px;
+}
+
+.navbar ul li a{
+    background: #888888;
+    color: whitesmoke;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 15px;
+}
+.navbar ul li a:hover{
+    color: aquamarine;
+}
+
+.navbar ul{
+    padding-left: 60px;
+    padding-right: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.navbar ul li{
+    list-style: none;
+    
+}
+
+.container{
+    max-width: 1200px;
+    margin: auto;
+}
+
+.card {
+    background: #404040;
+    color: aquamarine;
+    padding: 5px 20px;
+    margin-bottom: 2px;
+    width: 40%;
+    border-radius: 10px;
+    list-style: none;
+    text-decoration: none;
+}
+
+.projects{
+    display: flex;
+    text-decoration: none;
+    list-style: none;
+    font-size:large;
+    color: aquamarine;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.input {
+    background: #404040;
+    padding: 10px;
+    text-align: center;
+    display: block;
+}
+
+.tasks_buttons{
+    padding: 5px;
+    display: flex;
+    background: #222222;
+    color: beige;
+}
+
+.tasks_form{
+    margin: 10px;
+    
+}
+
+button{
+    background: #404040;
+    color: aquamarine;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.project_button{
+    width: 150%;
+    height: 100%;
+    margin-left: 10px;
+}
+
+.project_div{
+    display: flex;
+    margin-left: 28%;
+}
+
+.h1_project{
+    margin-left: 43%;
+}
+
+.cancel{
+    list-style: none;
+    text-decoration: none;
+    color: aquamarine;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.add_button{
+    width: 100px;
+    height: 30px;
+    margin-top: 25px;
+    margin-right: 15px;
+    border-radius: 16px;
+}
+
+.task_card{
+    padding-top: 20px;
+    display: flex;
+    background: #404040;
+    color: aquamarine;
+    padding: 5px 20px;
+    margin-bottom: 2px;
+    width: 88%;
+    height: 40px;
+    border-radius: 7px;
+    list-style: none;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.detail_div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.task_button{
+    margin-right: 6px;
+    height: 50px;
+    width: 80px;
+}
+

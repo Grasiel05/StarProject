@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %} {% block content %}
+    <title>Create New Task</title>
+    <main class="container mt-5 pt-5">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <h1 class="text-center mt-1">Create a new Task</h1>
+                <form method="POST" class="card card-body">
+                    {% csrf_token %}
+                    {{form}}
+                    <button class="btn btn-primary mt-2">Save</button>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}
