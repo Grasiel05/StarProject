@@ -1,4 +1,10 @@
+import os
+import django
 from django.contrib.auth import get_user_model
+
+# Configurar Django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
+django.setup()
 
 User = get_user_model()
 
