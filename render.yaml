@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: starproject
-    env: python
-    buildCommand: ./build.sh
-    startCommand: gunicorn mysite.wsgi
-    disk:
-      name: sqlite-disk
-      mountPath: /app/db
