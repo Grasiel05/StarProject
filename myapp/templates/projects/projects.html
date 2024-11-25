@@ -1,9 +1,9 @@
 {% extends 'layouts/base.html' %} {% block content %}
       <title>Projects</title>
-      <form class="mt-5 pt-4 me-5 d-grid gap-2 d-md-flex justify-content-md-end fixed-top" action="{% url 'create_project' user.id %}" method="GET">
+      <form class="mt-5 pt-4 me-5 d-grid gap-2 d-md-flex justify-content-md-end" action="{% url 'create_project' user.id %}" method="GET">
         <button class="btn btn-primary" type="submit" >Add Project</button>
       </form>
-      <main class="container mt-5 pt-5">
+      <main class="container">
         <div class="row">
           <div class="col-md-6 offset-md-3 p-0">
             <h1 class="h1_project text-center display-3">Projects</h1>

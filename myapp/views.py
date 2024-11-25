@@ -13,7 +13,8 @@ from .decorators import unauthenticated_user
 # Create your views here.
 def initial(request):
     """index page"""
-    comments = Comment.objects.all()
+    comments = list(Comment.objects.all())
+    comments.reverse()
 
     if request.method == "POST":
         if request.user.is_authenticated:
