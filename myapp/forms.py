@@ -8,7 +8,10 @@ class CreateTask(forms.ModelForm):
         fields = ['title', 'description']
         widgets = {
             'title': forms.TextInput(attrs={ 'class': 'form-control' }),
-            'description': forms.Textarea(attrs={ 'class': 'form-control'})
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'style': 'width: 100%; height: 100px; resize: none;',
+            })
         }
 
 

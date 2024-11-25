@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 from django.contrib.messages import constants as messages
 
+IS_DEPLOYMENT = os.getenv('IS_DEPLOYMENT', 'False')
+
 MESSAGE_TAGS = {
     messages.DEBUG: 'debug',
     messages.INFO: 'info',
